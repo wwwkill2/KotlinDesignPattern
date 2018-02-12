@@ -86,15 +86,15 @@ class CompositeIterator(iterator: Iterator<MenuComponent>) : Iterator<MenuCompon
     }
 
     override fun next(): MenuComponent? {
-        if (hasNext()) {
+        return if (hasNext()) {
             val iterator = stack.peek()
             val component = iterator.next()
             if (component is Menu) {
                 stack.push(component.createIterator())
             }
-            return component
+            component
         } else {
-            return null
+            null
         }
     }
 
